@@ -1,13 +1,13 @@
 import {Contact} from './contact';
 
 export class ContactService{
-    private contacts:Contact[];
+    contacts:Contact[];
     contactser:ContactService;
-    contactSearch:Contact[];
-
+    dummy:Contact;
 
     constructor (){
     this.contacts=[];
+    this.dummy=new Contact();
     var contact1,contact2,contact3,contact4;
     contact1=new Contact();
     contact1.name="Eric Elliot";
@@ -25,6 +25,7 @@ export class ContactService{
     this.contacts.push(contact2);
     this.contacts.push(contact3);
     this.contacts.push(contact4);
+    this.sort(this.contacts);
     }
 
     getContacts():Contact[]{
@@ -35,90 +36,19 @@ export class ContactService{
     this.contacts.push(c);
     return this.contacts;
     }
-    removeContact(c:Contact):Contact[]
-    {
-        for(let index=0; index<this.contacts.length;index++)
+    sort(contacts:Contact[]){
+        for(let index=0;index<this.contacts.length-1;index++)
         {
-            if(c.phoneNo==this.contacts[index].phoneNo)
-            {
-                const i=index;
-                this.contacts.splice(i,1);
-                break;
-            }
-        }
-        return this.contacts;
-    }
-
-    updateContact(c:Contact)
-    {
-        for(let index=0;index<this.contacts.length; index++)
-        {
-          if(c.name==this.contacts[index].name || c.phoneNo==this.contacts[index].phoneNo)
+          for(let i=index+1;i<this.contacts.length;i++)
           {
-              this.contacts[index].name==c.name;
-              this.contacts[index].phoneNo==c.phoneNo;
-              break;
+             if(this.contacts[index].name>this.contacts[i].name)
+             {
+               this.dummy=this.contacts[index];
+               this.contacts[index]=this.contacts[i];
+               this.contacts[i]=this.dummy;
+             }
           }
-          else{
-              this.contactser.addContact(c);
-          }
         }
-        return this.contacts;
-
-
-    }
-
-    searchContact(search:string):Contact[]
-    {
-        if(search=="")
-        {
-            return this.contacts;
-        }
-        else
-        {
-            this.contactSearch=[];
-            for(let index=0;index<this.contacts.length;index++)
-            {
-                if(search.toLowerCase()==this.contacts[index].name || search==this.contacts[index].phoneNo.toString())
-                {
-                    this.contactSearch.push(this.contacts[index]);
-                }
-            }
-            return this.contactSearch;
-
-        }
-    }
-
-    sortContacts(sortDesc:boolean):Contact[]
-{   if(sortDesc==false)
-    {
-    this.contacts=this.contacts.sort((obj1, obj2) => {
-      if (obj1.name > obj2.name) {
-          return 1;
+    
       }
-  
-      else if (obj1.name < obj2.name) {
-          return -1;
-      }
-  
-      return 0;
-  });
-    }
-    else if(sortDesc==true)
-    {
-        this.contacts=this.contacts.sort((obj1, obj2) => {
-            if (obj1.name> obj2.name) {
-                return -1;
-            }
-        
-            else if (obj1.name < obj2.name) {
-                return 1;
-            }
-        
-            return 0;
-    });
 }
-  return this.contacts;
-}
-        
-    }

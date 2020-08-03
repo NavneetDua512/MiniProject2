@@ -1,7 +1,36 @@
-<section>
-    <section *ngFor="let contact of contacts" class="alert alert-warning" id="display">
-        Name:{{contact.name}}<br/>
-        PhoneNo:{{contact.phoneNo}}<br/>
-    </section>
+
+    <section class="alert alert-primary">
+        <input style="width: 30%;" list="list" class="alert alert-success" [(ngModel)]="s1" placeholder="Search contact by name">
+        <datalist id="list">
+        <option  *ngFor="let contact of contacts" value={{contact.name}}></option>
+        </datalist>
+        <button class="btn btn-primary" (click)="search()">Search</button>
+        <div *ngIf="s2">
+            <p><b>Search Result</b></p>
+            <p *ngIf="content">Not found</p>
+        <p style="border-bottom: solid;" *ngFor="let contact of searched">
+            <span style="font-size: large;">{{contact.name}}</span><br/>
+           <span class="glyphicon glyphicon-earphone"></span> {{contact.phoneNo}} <button id="del" (click)="delete(contact)"></button>
+            </p>
+        </div>
+        
+        <article *ngFor="let contact of contacts">
+            <span style="font-size: large;">{{contact.name}}</span><br/>
+        <span class="glyphicon glyphicon-trash"></span> {{contact.phoneNo}}   <button id="del" (click)="delete(contact)"></button>
+        <button id="upd" (click)="display(contact.name)" class="glyphicon glyphicon-trash"></button>
+        </article>
+        <div  *ngIf="display">
+            <label>Name:</label>
+            <input class="alert alert-success" #name type="text" /><br/>
+            <label>Number:</label>
+            <input  class="alert alert-success" #phoneNo type="text" />
+            <button style="margin: 3px;" class="btn btn-primary" (click)="update(name.value,phoneNo.value)">Create Contact</button>
+        </div>
+        </section>
+        <section>
+            <section *ngFor="let contact of contacts" class="alert alert-warning" id="display">
+                Name:{{contact.name}}<br/>
+                PhoneNo:{{contact.phoneNo}}<br/>
+            </section>
     
 </section>

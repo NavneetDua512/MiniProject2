@@ -9,16 +9,11 @@
 <input type="text"  placeholder="Search for contact by last name" size="185">
 <br/>
 <br/>
+<div  *ngIf="display"></div>
 <label for="txtName">Name</label>
 <input type="text" [(ngModel)]="contact.name">
     <label for="txtNumber" >Phone No</label>
     <input type="text" [(ngModel)]="contact.phoneNo" > <br/>
-
-    <button class="btn btn-danger" (click)="removeDetails()">Delete Contact</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button class="btn btn-success" style="margin-top: 8px; margin-bottom: 10px;" (click)="updateDetails(contactName,phoneno)">Update</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button class="btn btn-primary" (click)="searchDetails()">Search Contact</button>
+    <button style="margin: 3px;" class="btn btn-primary" (click)="addContacts()">Create Contact</button>
 </div>
-<section>
-   
-    <!-- {{contact.phoneNo}} -->
-</section>
+    <app-contacts></app-contacts>
